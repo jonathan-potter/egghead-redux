@@ -1,7 +1,8 @@
 import React, {PropTypes} from 'react'
+import {connect} from 'react-redux'
 
 let nextTodoId = 0;
-export default function AddTodo(props, {store}){
+export default connect()(function AddTodo({dispatch}){
   let input;
 
   return (
@@ -10,7 +11,7 @@ export default function AddTodo(props, {store}){
         input = node
       }} />
       <button onClick={() => {
-        store.dispatch({
+        dispatch({
           type: 'ADD_TODO',
           text: input.value,
           id: nextTodoId++
@@ -22,8 +23,4 @@ export default function AddTodo(props, {store}){
       </button>
     </div>
   )
-}
-
-AddTodo.contextTypes = {
-  store: PropTypes.object
-}
+})
