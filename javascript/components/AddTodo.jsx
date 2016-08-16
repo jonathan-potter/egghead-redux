@@ -1,8 +1,6 @@
 import React from 'react'
 
-import store from 'javascript/store'
-
-export default function AddTodo() {
+export default function AddTodo({store}) {
   let input;
 
   return (
@@ -11,7 +9,7 @@ export default function AddTodo() {
         input = node
       }} />
       <button onClick={() => {
-        onClickAddTodo(input.value)
+        onClickAddTodo(input.value, store)
 
         input.value = ''
       }}>
@@ -22,7 +20,7 @@ export default function AddTodo() {
 }
 
 let nextTodoId = 0;
-function onClickAddTodo(todoName) {
+function onClickAddTodo(todoName, store) {
   store.dispatch({
     type: 'ADD_TODO',
     text: todoName,

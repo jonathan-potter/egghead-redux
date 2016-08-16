@@ -3,11 +3,17 @@ import ReactDOM from 'react-dom'
 
 import { createStore, combineReducers } from 'redux'
 
-import store from 'javascript/store'
-
 import TodoApp from 'components/TodoApp'
 
+import todos from 'reducers/todos'
+import visibilityFilter from 'reducers/visibilityFilter'
+
+const store = createStore(combineReducers({
+  todos: todos,
+  visibilityFilter: visibilityFilter
+}))
+
 ReactDOM.render(
-  <TodoApp />,
+  <TodoApp store={store}/>,
   document.getElementById('root')
 )

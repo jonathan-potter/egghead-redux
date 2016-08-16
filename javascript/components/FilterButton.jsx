@@ -1,10 +1,8 @@
 import React, {Component} from 'react'
 
-import store from 'javascript/store'
-
 export default class FilterButton extends Component {
   componentDidMount() {
-    this.unsubscribe = store.subscribe(() => {
+    this.unsubscribe = this.props.store.subscribe(() => {
       this.forceUpdate()
     })
   }
@@ -14,24 +12,20 @@ export default class FilterButton extends Component {
   }
 
   render() {
-    const {children, filter} = this.props
+    const {children, filter, store} = this.props
     const state = store.getState();
 
     return (
       <button
         disabled={filter === state.visibilityFilter}
         onClick={() => {
-          onClickFilter(filter)
+          store.dispatch({
+            type: 'SET_VISIBILITY_FILTER',
+            filter: filter
+          })
         }}>
         {children}
       </button>
     )
   }
-}
-
-function onClickFilter(filter) {
-  store.dispatch({
-    type: 'SET_VISIBILITY_FILTER',
-    filter: filter
-  })
 }

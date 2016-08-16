@@ -1,12 +1,10 @@
 import React, {Component} from 'react'
 
-import store from 'javascript/store'
-
 import TodoList from 'components/TodoList'
 
 export default class VisibleTodoList extends Component {
   componentDidMount() {
-    this.unsubscribe = store.subscribe(() => {
+    this.unsubscribe = this.props.store.subscribe(() => {
       this.forceUpdate()
     })
   }
@@ -16,12 +14,18 @@ export default class VisibleTodoList extends Component {
   }
 
   render() {
+    const {store} = this.props
     const {todos, visibilityFilter} = store.getState()
 
     return (
       <TodoList
         todos={getVisibleTodos({todos: todos, filter: visibilityFilter})}
-        onClickTodo={onClickTodo} />
+        onClickTodo={todo => {
+          return store.dispatch({
+            type: 'TOGGLE_TODO',
+            id: todo.id
+          })
+        }} />
     )
   }
 }
@@ -35,11 +39,4 @@ function getVisibleTodos({todos, filter}) {
     case 'SHOW_COMPLETED':
       return todos.filter(todo => todo.completed)
   }
-}
-
-function onClickTodo(todo) {
-  return store.dispatch({
-    type: 'TOGGLE_TODO',
-    id: todo.id
-  })
 }
