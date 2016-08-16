@@ -1,6 +1,8 @@
 import React from 'react'
 
-export default function AddTodo({onClickAddTodo}) {
+import store from 'javascript/store'
+
+export default function AddTodo() {
   let input;
 
   return (
@@ -17,4 +19,13 @@ export default function AddTodo({onClickAddTodo}) {
       </button>
     </div>
   )
+}
+
+let nextTodoId = 0;
+function onClickAddTodo(todoName) {
+  store.dispatch({
+    type: 'ADD_TODO',
+    text: todoName,
+    id: nextTodoId++
+  })
 }

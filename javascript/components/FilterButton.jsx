@@ -5,9 +5,7 @@ import store from 'javascript/store'
 export default class FilterButton extends Component {
   componentDidMount() {
     this.unsubscribe = store.subscribe(() => {
-      store.subscribe(() => {
-        this.forceUpdate()
-      })
+      this.forceUpdate()
     })
   }
 
