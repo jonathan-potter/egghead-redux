@@ -16,10 +16,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onTodoClick: id => {
-      dispatch({
-        type: 'TOGGLE_TODO',
-        id: id
-      })
+      dispatch(toggleTodo(id))
     }
   }
 }
@@ -39,3 +36,10 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(TodoList)
+
+function toggleTodo(id) {
+  return {
+    type: 'TOGGLE_TODO',
+    id: id
+  }
+}

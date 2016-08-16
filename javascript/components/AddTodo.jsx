@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 
-let nextTodoId = 0;
 export default connect()(function AddTodo({dispatch}){
   let input;
 
@@ -11,11 +10,7 @@ export default connect()(function AddTodo({dispatch}){
         input = node
       }} />
       <button onClick={() => {
-        dispatch({
-          type: 'ADD_TODO',
-          text: input.value,
-          id: nextTodoId++
-        })
+        dispatch(addTodo(input.value))
 
         input.value = ''
       }}>
@@ -24,3 +19,12 @@ export default connect()(function AddTodo({dispatch}){
     </div>
   )
 })
+
+let nextTodoId = 0;
+function addTodo(text) {
+  return {
+    type: 'ADD_TODO',
+    id: nextTodoId++,
+    text: text
+  }
+}

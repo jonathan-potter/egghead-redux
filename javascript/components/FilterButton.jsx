@@ -10,10 +10,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     onClick() {
-      dispatch({
-        type: 'SET_VISIBILITY_FILTER',
-        filter: props.filter
-      })
+      dispatch(setVisibilityFilter(props.filter))
     }
   }
 }
@@ -29,3 +26,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     )
   }
 )
+
+function setVisibilityFilter(filter) {
+  return {
+    type: 'SET_VISIBILITY_FILTER',
+    filter: filter
+  }
+}
