@@ -4,12 +4,12 @@ import AddTodo from 'components/AddTodo'
 import VisibleTodoList from 'components/VisibleTodoList'
 import FilterButtons from 'components/FilterButtons'
 
-export default function TodoApp ({store}) {
+export default function TodoApp () {
   return (
     <div>
-      <AddTodo store={store} />
-      <VisibleTodoList store={store} />
-      <FilterButtons store={store} />
+      <AddTodo />
+      <VisibleTodoList />
+      <FilterButtons />
     </div>
   )
 }

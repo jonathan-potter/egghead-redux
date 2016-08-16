@@ -1,8 +1,10 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 
 export default class FilterButton extends Component {
   componentDidMount() {
-    this.unsubscribe = this.props.store.subscribe(() => {
+    const {store} = this.context
+
+    this.unsubscribe = store.subscribe(() => {
       this.forceUpdate()
     })
   }
@@ -12,7 +14,8 @@ export default class FilterButton extends Component {
   }
 
   render() {
-    const {children, filter, store} = this.props
+    const {store} = this.context
+    const {children, filter} = this.props
     const state = store.getState();
 
     return (
@@ -28,4 +31,8 @@ export default class FilterButton extends Component {
       </button>
     )
   }
+}
+
+FilterButton.contextTypes = {
+  store: PropTypes.object
 }
