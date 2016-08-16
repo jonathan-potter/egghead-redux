@@ -1,38 +1,31 @@
 import React, {Component, PropTypes} from 'react'
+import {connect} from 'react-redux'
 
-export default class FilterButton extends Component {
-  componentDidMount() {
-    const {store} = this.context
-
-    this.unsubscribe = store.subscribe(() => {
-      this.forceUpdate()
-    })
+const mapStateToProps = (state, props) => {
+  return {
+    active: props.filter === state.visibilityFilter
   }
+}
 
-  componentWillUnmount() {
-    this.unsubscribe()
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onClick() {
+      dispatch({
+        type: 'SET_VISIBILITY_FILTER',
+        filter: props.filter
+      })
+    }
   }
+}
 
-  render() {
-    const {store} = this.context
-    const {children, filter} = this.props
-    const state = store.getState();
-
+export default connect(mapStateToProps, mapDispatchToProps)(
+  function FilterButton ({active, children, onClick}) {
     return (
       <button
-        disabled={filter === state.visibilityFilter}
-        onClick={() => {
-          store.dispatch({
-            type: 'SET_VISIBILITY_FILTER',
-            filter: filter
-          })
-        }}>
+        disabled={active}
+        onClick={onClick}>
         {children}
       </button>
     )
   }
-}
-
-FilterButton.contextTypes = {
-  store: PropTypes.object
-}
+)
