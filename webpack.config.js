@@ -12,7 +12,8 @@ module.exports = {
     alias: {
       javascript: path.resolve(__dirname, 'javascript'),
       components: path.resolve(__dirname, 'javascript', 'components'),
-      reducers:   path.resolve(__dirname, 'javascript', 'reducers')
+      reducers:   path.resolve(__dirname, 'javascript', 'reducers'),
+      utility:    path.resolve(__dirname, 'javascript', 'utility')
     }
   },
   module: {

@@ -1,9 +1,9 @@
+import { v4 } from 'node-uuid'
 
-let nextTodoId = 0;
 export function addTodo(text) {
   return {
     type: 'ADD_TODO',
-    id: nextTodoId++,
+    id: v4(),
     text: text
   }
 }
