@@ -1,6 +1,8 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 
+import {addTodo} from 'javascript/actions'
+
 export default connect()(function AddTodo({dispatch}){
   let input;
 
@@ -19,12 +21,3 @@ export default connect()(function AddTodo({dispatch}){
     </div>
   )
 })
-
-let nextTodoId = 0;
-function addTodo(text) {
-  return {
-    type: 'ADD_TODO',
-    id: nextTodoId++,
-    text: text
-  }
-}

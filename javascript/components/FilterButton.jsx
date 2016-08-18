@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 
+import {setVisibilityFilter} from 'javascript/actions'
+
 const mapStateToProps = (state, props) => {
   return {
     active: props.filter === state.visibilityFilter
@@ -26,10 +28,3 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     )
   }
 )
-
-function setVisibilityFilter(filter) {
-  return {
-    type: 'SET_VISIBILITY_FILTER',
-    filter: filter
-  }
-}

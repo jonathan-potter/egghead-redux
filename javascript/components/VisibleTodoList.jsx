@@ -4,6 +4,8 @@ import {connect} from 'react-redux'
 
 import TodoList from 'components/TodoList'
 
+import {toggleTodo} from 'javascript/actions'
+
 const mapStateToProps = state => {
   return {
     todos: getVisibleTodos({
@@ -36,10 +38,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(TodoList)
-
-function toggleTodo(id) {
-  return {
-    type: 'TOGGLE_TODO',
-    id: id
-  }
-}
