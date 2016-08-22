@@ -6,16 +6,13 @@ export default function FilterButtons() {
   return (
     <p>
       Show:
-      <FilterButton
-        filter="SHOW_ALL">
+      <FilterButton filter="all">
         All
       </FilterButton>
-      <FilterButton
-        filter="SHOW_ACTIVE">
+      <FilterButton filter="active">
         Active
       </FilterButton>
-      <FilterButton
-        filter="SHOW_COMPLETED">
+      <FilterButton filter="completed">
         Completed
       </FilterButton>
     </p>

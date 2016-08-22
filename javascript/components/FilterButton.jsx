@@ -1,30 +1,17 @@
-import React, {Component, PropTypes} from 'react'
-import {connect} from 'react-redux'
+import React from 'react'
+import { Link } from 'react-router'
 
-import {setVisibilityFilter} from 'javascript/actions'
-
-const mapStateToProps = (state, props) => {
-  return {
-    active: props.filter === state.visibilityFilter
-  }
+export default function FilterLink({ children, filter }) {
+  return (
+    <Link
+      to={filter === 'all' ? '' : filter}
+      activeStyle={{
+        textDecoration: 'none',
+        color: 'black'
+      }}>
+      {children}
+    </Link>
+  )
 }
 
-const mapDispatchToProps = (dispatch, props) => {
-  return {
-    onClick() {
-      dispatch(setVisibilityFilter(props.filter))
-    }
-  }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  function FilterButton ({active, children, onClick}) {
-    return (
-      <button
-        disabled={active}
-        onClick={onClick}>
-        {children}
-      </button>
-    )
-  }
-)
