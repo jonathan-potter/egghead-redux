@@ -1,11 +1,11 @@
 var path = require('path');
 
 module.exports = {
-  entry: "./javascript/app",
+  devtool: "#inline-source-map",
+  entry: path.resolve(__dirname, 'javascript', 'app.js'),
   output: {
-    path: __dirname,
-    filename: "build/bundle.js",
-    sourceMapFilename: "sourcemap"
+    path: path.resolve(__dirname, '/build/'),
+    filename: 'bundle.js'
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
@@ -21,9 +21,8 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
+        loader: 'babel-loader'
       }
     ]
-  },
-  devtool: "#inline-source-map"
+  }
 };
