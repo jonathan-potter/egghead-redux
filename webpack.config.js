@@ -2,10 +2,10 @@ var path = require('path');
 
 module.exports = {
   devtool: "#inline-source-map",
-  entry: path.resolve(__dirname, 'javascript', 'app.js'),
+  entry: path.join(__dirname, 'javascript', 'app.js'),
   output: {
-    path: path.resolve(__dirname, '/build/'),
-    filename: 'bundle.js'
+    path: __dirname,
+    filename: "build/bundle.js"
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
