@@ -1,43 +1,44 @@
 import { createStore } from 'redux'
 import rootReducer from 'reducers'
 
+function wrapDispatchWithMiddlewares(store, middlewares) {
+  middlewares.slice().reverse().forEach(middleware => {
+    store.dispatch = middleware(store)(store.dispatch)
+  })
+}
+
 export default function configureStore() {
   const store = createStore(rootReducer)
+  const middlewares = [promise]
 
   if (process.env.NODE_ENV !== 'production') {
-    store.dispatch = addLoggingToDispatch(store)
+    middlewares.push(logger)
   }
 
-  store.dispatch = addPromiseSupport(store)
+  wrapDispatchWithMiddlewares(store, middlewares)
 
   return store
 }
 
-function addPromiseSupport(store) {
-  const rawDispatch = store.dispatch
-
-  return function(action) {
-    if (typeof action.then === 'function') {
-      return action.then(rawDispatch)
-    }
-
-    return rawDispatch(action)
+const promise = store => next => action => {
+  if (typeof action.then === 'function') {
+    return action.then(next)
   }
+
+  return next(action)
 }
 
-function addLoggingToDispatch(store) {
+const logger = store => next => {
   /* eslint-disable no-console */
-  const rawDispatch = store.dispatch
-
   if (!console.group) {
-    return rawDispatch
+    return next
   }
 
-  return function (action) {
+  return action => {
     console.group(action.type)
     console.log('%c prev state', 'color: gray', store.getState())
     console.log('%c action', 'color: blue', action)
-    const returnValue = rawDispatch(action)
+    const returnValue = next(action)
     console.log('%c next state', 'color: green', store.getState())
     console.groupEnd(action.type)
 
