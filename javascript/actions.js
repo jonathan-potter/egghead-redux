@@ -14,3 +14,11 @@ export function toggleTodo(id) {
     id: id
   }
 }
+
+export function receiveTodos(filter, response) {
+  return {
+    type: 'RECEIVE_TODOS',
+    filter,
+    response
+  }
+}
