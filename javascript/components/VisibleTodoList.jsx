@@ -12,14 +12,6 @@ function mapStateToProps(state, props) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    onTodoClick: id => {
-      dispatch(toggleTodo(id))
-    }
-  }
-}
-
 function getVisibleTodos({todos, filter}) {
   switch(filter) {
     case 'all':
@@ -35,5 +27,5 @@ function getVisibleTodos({todos, filter}) {
 
 export default withRouter(connect(
   mapStateToProps,
-  mapDispatchToProps
+  { onTodoClick: toggleTodo }
 )(TodoList))
