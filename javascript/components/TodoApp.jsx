@@ -4,12 +4,11 @@ import AddTodo from 'components/AddTodo'
 import VisibleTodoList from 'components/VisibleTodoList'
 import FilterButtons from 'components/FilterButtons'
 
-export default function TodoApp ({ params }) {
+export default function TodoApp() {
   return (
     <div>
       <AddTodo />
-      <VisibleTodoList
-        filter={params.filter || 'all'}/>
+      <VisibleTodoList />
       <FilterButtons />
     </div>
   )
