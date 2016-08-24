@@ -4,7 +4,6 @@ import { withRouter } from 'react-router'
 import TodoList from 'components/TodoList'
 import * as actions from 'javascript/actions'
 import { getVisibleTodos } from 'reducers'
-import { fetchTodos } from 'utility/api'
 
 class VisibleTodoList extends Component {
   componentDidMount() {
@@ -18,11 +17,9 @@ class VisibleTodoList extends Component {
   }
 
   fetchData() {
-    const { filter, receiveTodos } = this.props
+    const { filter, fetchTodos } = this.props
 
-    fetchTodos(this.props.filter).then(todos => {
-      receiveTodos(filter, todos)
-    })
+    fetchTodos(filter)
   }
 
   render() {

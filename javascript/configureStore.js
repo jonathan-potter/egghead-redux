@@ -8,7 +8,21 @@ export default function configureStore() {
     store.dispatch = addLoggingToDispatch(store)
   }
 
+  store.dispatch = addPromiseSupport(store)
+
   return store
+}
+
+function addPromiseSupport(store) {
+  const rawDispatch = store.dispatch
+
+  return function(action) {
+    if (typeof action.then === 'function') {
+      return action.then(rawDispatch)
+    }
+
+    return rawDispatch(action)
+  }
 }
 
 function addLoggingToDispatch(store) {
