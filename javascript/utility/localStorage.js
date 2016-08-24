@@ -20,8 +20,8 @@ export function saveState(state) {
 
     localStorage.setItem(STORAGE_KEY, serializedState)
   } catch (error) {
-    /* eslint-disable */
+    /* eslint-disable no-console */
     console.log('saveState error:', error)
-    /* eslint-enable */
+    /* eslint-enable no-console */
   }
 }
