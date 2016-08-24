@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'EGGHEAD_STAGE'
+const STORAGE_KEY = 'EGGHEAD_STATE'
 
 export function loadState() {
   try {
