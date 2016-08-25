@@ -6,7 +6,7 @@ export default function todo(state, action) {
         text: action.text,
         completed: false
       }
-    case 'TOGGLE_TODO':
+    case 'TOGGLE_TODO_SUCCESS':
       if (state.id !== action.id) { return state }
 
       return {

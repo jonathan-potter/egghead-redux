@@ -14,11 +14,15 @@ export const addTodo = text => dispatch => {
   )
 }
 
-export function toggleTodo(id) {
-  return {
-    type: 'TOGGLE_TODO',
-    id: id
-  }
+export const toggleTodo = id => dispatch => {
+  api.toggleTodo(id).then(
+    response => {
+      dispatch({
+        type: 'TOGGLE_TODO_SUCCESS',
+        response: normalize(response, schema.todo)
+      })
+    }
+  )
 }
 
 export const fetchTodos = filter => (dispatch, getState) => {
@@ -36,7 +40,7 @@ export const fetchTodos = filter => (dispatch, getState) => {
       dispatch({
         type: 'FETCH_TODOS_SUCCESS',
         response: normalize(response, schema.arrayOfTodos),
-        filter,
+        filter
       })
     },
     error => {
