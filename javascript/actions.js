@@ -22,24 +22,25 @@ export const fetchTodos = filter => (dispatch, getState) => {
     return Promise.resolve()
   }
 
-  dispatch(requestTodos(filter))
-
-  return api.fetchTodos(filter).then(response => {
-    dispatch(receiveTodos(filter, response))
-  })
-}
-
-function requestTodos(filter) {
-  return {
-    type: 'REQUEST_TODOS',
+  dispatch({
+    type: 'FETCH_TODOS_REQUEST',
     filter
-  }
-}
+  })
 
-function receiveTodos(filter, response) {
-  return {
-    type: 'RECEIVE_TODOS',
-    filter,
-    response
-  }
+  return api.fetchTodos(filter).then(
+    response => {
+      dispatch({
+        type: 'FETCH_TODOS_SUCCESS',
+        filter,
+        response
+      })
+    },
+    error => {
+      dispatch({
+        type: 'FETCH_TODOS_FAILURE',
+        message: error.message || 'Something went wrong.',
+        filter
+      })
+    }
+  )
 }

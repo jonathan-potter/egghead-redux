@@ -22,3 +22,7 @@ export function getVisibleTodos({state, filter}) {
 export function getIsFetching({state, filter}) {
   return fromList.getIsFetching(state.listByFilter[filter])
 }
+
+export function getErrorMessage({state, filter}) {
+  return fromList.getErrorMessage(state.listByFilter[filter])
+}
