@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import TodoList from 'components/TodoList'
 import FetchError from 'components/FetchError'
-import * as actions from 'javascript/actions'
+import * as actions from 'actions'
 import { getErrorMessage, getVisibleTodos, getIsFetching } from 'reducers'
 
 class VisibleTodoList extends Component {

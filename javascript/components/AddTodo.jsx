@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 
-import {addTodo} from 'javascript/actions'
+import {addTodo} from 'actions'
 
 export default connect()(function AddTodo({dispatch}){
   let input;
