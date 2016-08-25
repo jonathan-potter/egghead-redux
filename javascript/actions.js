@@ -1,4 +1,5 @@
 import { v4 } from 'node-uuid'
+import { getIsFetching } from 'reducers'
 import * as api from 'utility/api'
 
 export function addTodo(text) {
@@ -16,7 +17,11 @@ export function toggleTodo(id) {
   }
 }
 
-export const fetchTodos = filter => dispatch => {
+export const fetchTodos = filter => (dispatch, getState) => {
+  if (getIsFetching({state: getState(), filter})) {
+    return Promise.resolve()
+  }
+
   dispatch(requestTodos(filter))
 
   return api.fetchTodos(filter).then(response => {
