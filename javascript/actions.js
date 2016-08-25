@@ -9,12 +9,6 @@ export function addTodo(text) {
   }
 }
 
-export function fetchTodos(filter) {
-  return api.fetchTodos(filter).then(response => {
-    return receiveTodos(filter, response)
-  })
-}
-
 export function toggleTodo(id) {
   return {
     type: 'TOGGLE_TODO',
@@ -22,7 +16,15 @@ export function toggleTodo(id) {
   }
 }
 
-export function requestTodos(filter) {
+export const fetchTodos = filter => dispatch => {
+  dispatch(requestTodos(filter))
+
+  return api.fetchTodos(filter).then(response => {
+    dispatch(receiveTodos(filter, response))
+  })
+}
+
+function requestTodos(filter) {
   return {
     type: 'REQUEST_TODOS',
     filter
