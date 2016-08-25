@@ -1,48 +1,66 @@
 import { combineReducers } from 'redux'
-import todo from 'reducers/todo'
+
+const idsByFilter = combineReducers({
+  all: allIds,
+  active: activeIds,
+  completed: completedIds
+})
 
 export default combineReducers({
   byId,
-  allIds
+  idsByFilter
 })
-
-function getAllTodos(state) {
-  return state.allIds.map(id => state.byId[id])
-}
 
 export function byId(state = {}, action) {
   switch(action.type) {
-    case 'ADD_TODO':
-    case 'TOGGLE_TODO':
-      return {
-        ...state,
-        [action.id]: todo(state[action.id], action)
-      }
+    case 'RECEIVE_TODOS':
+      const nextState = { ...state }
+
+      action.response.forEach(todo => {
+        nextState[todo.id] = todo
+      })
+
+      return nextState
     default:
       return state
   }
 }
 
 export function allIds(state = [], action) {
+  if (action.filter !== 'all') { return state }
+
   switch(action.type) {
-    case 'ADD_TODO':
-      return [...state, action.id]
+    case 'RECEIVE_TODOS':
+      return action.response.map(todo => todo.id)
+    default:
+      return state
+  }
+}
+
+export function activeIds(state = [], action) {
+  if (action.filter !== 'active') { return state }
+
+  switch(action.type) {
+    case 'RECEIVE_TODOS':
+      return action.response.map(todo => todo.id)
+    default:
+      return state
+  }
+}
+
+export function completedIds(state = [], action) {
+  if (action.filter !== 'completed') { return state }
+
+  switch(action.type) {
+    case 'RECEIVE_TODOS':
+      return action.response.map(todo => todo.id)
     default:
       return state
   }
 }
 
 export function getVisibleTodos({state, filter}) {
-  const allTodos = getAllTodos(state)
+  const ids = state.idsByFilter[filter]
 
-  switch(filter) {
-    case 'all':
-      return allTodos
-    case 'active':
-      return allTodos.filter(todo => !todo.completed)
-    case 'completed':
-      return allTodos.filter(todo => todo.completed)
-    default:
-      throw new Error(`Unknown filter: ${filter}`)
-  }
+  return ids.map(id => state.byId[id])
 }
