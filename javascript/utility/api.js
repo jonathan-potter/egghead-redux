@@ -38,7 +38,7 @@ function delay(ms) {
 
 export function fetchTodos(filter) {
   return delay(500).then(() => {
-    if (Math.random() > 0.5) {
+    if (Math.random() < 0.1) {
       throw new Error('Boom!')
     }
 
@@ -54,3 +54,28 @@ export function fetchTodos(filter) {
     }
   })
 }
+
+export function addTodo(text) {
+  return delay(500).then(() => {
+    const todo = {
+      id: v4(),
+      text,
+      completed: false
+    };
+
+    fakeDatabase.todos.push(todo)
+
+    return todo
+  })
+}
+
+export function toggleTodo(id) {
+  return delay(500).then(() => {
+    const todo = fakeDatabase.todos.find(todo => todo.id === id)
+
+    todo.completed = !todo.completed
+
+    return todo
+  })
+}
+
